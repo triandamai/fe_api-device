@@ -1,4 +1,4 @@
-# bank-falah-syariah
+# Api Device Mangement
 Menggunakan Vue JS  [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Infrastructure
@@ -24,34 +24,4 @@ utils
 page
 component
 store
-```
-
-### Menu
-Apps menu menggunakan dinamis menu berdasarkan role tersedia di object privilages
-karena aplikasi dituntut dinamis dalam penggunaan role
-
-```json
-{
-  "headTitle1": "General",
-  "headTitle2": "Dashboards,features & data.",
-  "type": "headtitle",
-  "path": "General",
-  "privilage": {
-    "roles": [
-      "public"
-    ]
-  },
-  "children": [
-    {
-      "headTitle1": "General",
-      "headTitle2": "Dashboards,features & data.",
-      "type": "headtitle",
-      "path": "General",
-      "privilage": {
-        "roles": ["public"]
-
-      }
-    }
-  ]
-}
 ```
