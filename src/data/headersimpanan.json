@@ -1,0 +1,27 @@
+[
+
+    {
+        "text": "No Rekening",
+        "value": "no_rekening"
+    },
+    {
+        "text": "Nasabah",
+        "value": "nasabah"
+    },
+    {
+        "text": "Produk",
+        "value": "produk"
+    },
+    {
+        "text": "Tanggal Buka",
+        "value": "tgl_buka"
+    },
+    {
+        "text": "Status",
+        "value": "active"
+    },
+    {
+        "text": "Aksi",
+        "value": "action"
+    }
+]

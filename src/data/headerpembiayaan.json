@@ -1,0 +1,34 @@
+[
+    {
+        "text": "No Rekening",
+        "value": "no_rekening"
+    },
+    {
+        "text": "Nasabah",
+        "value": "nasabah"
+    },
+    {
+        "text": "Teller",
+        "value": "pegawai"
+    },
+    {
+        "text": "Nilai",
+        "value": "modal"
+    },
+    {
+        "text": "Lama Angsuran",
+        "value": "lama_angsuran"
+    },
+    {
+        "text": "Pencairan",
+        "value": "tgl_pencairan"
+    },
+    {
+        "text": "Jatuh Tempo",
+        "value": "tgl_jatuh_tempo"
+    },
+    {
+        "text": "Aksi",
+        "value": "action"
+    }
+]

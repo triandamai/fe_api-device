@@ -1,0 +1,20 @@
+[
+
+    {
+        "text": "Nama Jabatan",
+        "sortable": true,
+        "value": "nama_jabatan"
+    },
+    {
+        "text": "Deskripsi",
+        "value": "deskripsi"
+    },
+    {
+        "text": "Aktivitas",
+        "value": "updated_at"
+    },
+    {
+        "text": "Aksi",
+        "value": "action"
+    }
+]

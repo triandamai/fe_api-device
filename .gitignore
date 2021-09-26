@@ -1,0 +1,30 @@
+.DS_Store
+../api-device/front-end/node_modules
+/dist
+/dist_electron
+dist.zip
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+yarn.lock
+package-lock.json
+./package-lock.json
+
+# Project exclude paths
+/node_modules/
