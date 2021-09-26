@@ -8,8 +8,8 @@
  * catch every response
  * step intercept
  * 1. check status code
- *  1.2 check method(if method==GET check if the request should recursif because pagination)
- * 2. check if contains erros or just message
+ *  1.2 check method(if method==GET check if the request should recursive because pagination)
+ * 2. check if contains errors or just message
  * and should return
  * {
  *     "success":boolean,
@@ -25,11 +25,35 @@
  * @param response
  *
  ***/
-export const responseInterceptor = (response) => {
+export const responseInterceptor = ({config,data,status,headers,request}) => {
 
+    console.log(data)
+    console.log(config)
+    console.log(headers)
+    console.log(request)
+
+    if(status===200||status ===201){
+        return {
+            success: data.code === 200 || data.code === 201,
+            data:data.data,
+            message: data.message
+        }
+    }
+
+    if(status === 400){
+        return {
+            success: false,
+            data: {
+                status:status,
+                header:headers,
+                request:request
+            },
+            message:"Error"
+        }
+    }
     //if all process didn't pass
     return {
-        success: true,
+        success: false,
         data: [],
         message: "",
 
@@ -42,13 +66,10 @@ export const responseInterceptor = (response) => {
  *
  ***/
 export const errorInterceptor = (error) => {
-    //  console.log("error",error.response)
-
 
     return Promise.resolve({
         success: false,
         data: [],
-        message: "",
-        shouldNext: false
+        message: error.message
     })
 }

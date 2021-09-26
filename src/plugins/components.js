@@ -16,7 +16,6 @@ Vue.component("form-deposito", () => import("@/components/form_deposito.vue"));
 Vue.component("form-jenistransaksi", () =>
     import("@/components/form_jenistransaksi.vue")
 );
-Vue.component("form-nasabah", () => import("@/components/form_nasabah.vue"));
 Vue.component("form-pembiayaan", () =>
     import("@/components/form_pembiayaan.vue")
 );

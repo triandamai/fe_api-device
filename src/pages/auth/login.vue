@@ -107,10 +107,9 @@
 </template>
 
 <script>
-import authenticatioMixin from "@/mixin/authentication.mixin"
+import authenticationMixin from "@/mixin/authentication.mixin"
 export default {
   name: "login",
-  mixins:[authenticatioMixin]
-
+  mixins:[authenticationMixin]
 };
 </script>
