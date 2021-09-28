@@ -14,7 +14,7 @@
           alt=""
         />
       </router-link>
-      <span class="font-roboto" style="margin-left: 5px; font-style: normal;">{{app_name}}</span>
+      <span class="font-roboto" style="margin-left: 5px; font-style: normal;">Api Device</span>
 
       <div class="back-btn" @click="toggle_sidebar">
         <i class="fa fa-angle-left"></i>
@@ -389,7 +389,8 @@
   </div>
 </template>
 <script>
-import {checkPrivilage} from "@/utils/utils"
+
+
 import {getAppname} from "@/services/jwt.service";
 import { mapState } from "vuex";
 export default {
@@ -468,8 +469,9 @@ export default {
     });
   },
   methods: {
-    //check if user already logged in is have privilage for acces those menu
-    checkPrivilage:(privilage)=>checkPrivilage(privilage),
+    checkPrivilage(a){
+      return true
+    },
     showForm(form) {
       this.$store.commit("showForm", form);
     },

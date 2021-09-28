@@ -91,7 +91,9 @@ export default {
         },
         signOut() {
             this.$store.dispatch(`auth/${LOGOUT}`).then(() => {
-                this.$router.replace({name: "login"});
+                this.$router.replace({name: "login"}).then(r => {
+                    console.log(r.redirectedFrom)
+                });
             });
         }
     },

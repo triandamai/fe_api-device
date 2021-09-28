@@ -37,16 +37,7 @@
           </transition>
         </div>
         <Footer />
-      </div>
-      <form-transaksi-pembiayaan-setor-tunai :show="pembiayaanformsetortunai"/>
-      <form-transaksi-pembiayaan-setor-nontunai :show="pembiayaanformsetornontunai"/>
-      <form-transaksi-pembiayaan-tarik-tunai :show="pembiayaanformtariktunai"/>
-      <form-transaksi-pembiayaan-tarik-nontunai :show="pembiayaanformtariknontunai"/>
-      <form-transaksi-tabungan-setor-tunai :show="tabunganformsetortunai"/>
-      <form-transaksi-tabungan-setor-nontunai :show="tabunganformsetornontunai"/>
-      <form-transaksi-tabungan-tarik-tunai :show="tabunganformtariktunai"/>
-      <form-transaksi-tabungan-tarik-nontunai :show="tabunganformtariknontunai"/>
-      <Customizer />
+      </div><Customizer />
       <v-snackbar
           v-model="notifConnection"
       >
@@ -69,7 +60,7 @@
 
 <script>
 
-import {ACTION_GET_NASABAH} from "@/store";
+
 import componentMixin from "@/mixin/component.mixin"
 import {mapState} from "vuex";
 export default {
@@ -90,8 +81,7 @@ export default {
     this.handleResize();
     this.resized = this.sidebar_toggle_var;
     this.$store.dispatch("layout/set");
-    //get data nasabah
-    this.getNasabah()
+
   },
   computed:{
     ...mapState({
@@ -138,13 +128,6 @@ export default {
     handleResize() {
       this.$store.dispatch("menu/resizetoggle");
     },
-    getNasabah(){
-      this.$store.dispatch(ACTION_GET_NASABAH).then((isNext) => {
-        if (isNext) {
-          this.getNasabah();
-        }
-      })
-    }
   },
 };
 </script>

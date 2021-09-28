@@ -75,7 +75,7 @@ const routes = [
             {
                 path: "user",
                 name: "user",
-                component: () => import("@/pages/user/user.vue"),
+                component: () => import("@/pages/users/user.vue"),
                 meta: {
                     title: "User | Bank Falah Syariah",
                     reqiresAuth: true,
@@ -142,12 +142,7 @@ router.beforeEach((to, from, next) => {
     if (to.meta.title) document.title = to.meta.title;
     if (to.meta.reqiresAuth) {
         if (user) {
-            if (checkPrivilage({roles: to.meta.roles})) {
-                next();
-            } else {
-                next({path: "/main/not-authorized"})
-            }
-
+            next()
         } else {
             next({path: "/login"});
         }
@@ -156,29 +151,6 @@ router.beforeEach((to, from, next) => {
     }
 
 });
-router.afterEach((to) => {
 
-    if (to.path === "/login" || to.path === "/unlock") {
-        //
-    } else {
-        ApiService.get("/statistics?days=10").then(() => {
-        }).catch((e) => {
-            if (e.response) {
-                if (e.response.status === 401) {
-                    setTimeout(() => {
-                        router.push({path: '/unlock'})
-                    }, 3400)
-                    Vue.swal({
-                        title: 'Sesi Berakhir atau Akun terhubung di perangkat lain!',
-                        html: 'Anda akan diarahkan ke halaman masuk.',
-                        timer: 3000
-                    })
-                }
-            }
-
-        })
-    }
-
-})
 
 export default router;

@@ -178,17 +178,9 @@ export default {
   //   Bookmark,
   // },
   created() {
-    const user = getUser();
 
 
-    if(user){
-      this.username = user ? user.username:"";
-      if (user.role[0]) {
-        this.role = user.role[0].name;
-      }else {
-        this.role = "tidak memiliki akses";
-      }
-    }
+    this.role = "tidak memiliki akses";
 
     //this.group = user.group[0].name;
   },

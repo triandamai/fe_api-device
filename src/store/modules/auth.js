@@ -8,6 +8,7 @@
 import ApiService from "@/services/api.service";
 import JwtService from "@/services/jwt.service";
 
+
 // action types
 export const LOGIN = "login";
 export const LOGOUT = "logout";
@@ -36,6 +37,7 @@ const getters = {
 const actions = {
   /***
    * Login
+   * @param commit
    * @param credentials{username,password}
    * @return action login
    *
@@ -50,7 +52,9 @@ const actions = {
 
           resolve({ success: success, message: message });
           if (success) {
-            commit(SET_AUTH, data);
+            //
+            console.log(data)
+           // commit(SET_AUTH, data);
           }
         })
     });
