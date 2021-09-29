@@ -32,6 +32,16 @@
       }
     },
     {
+      "path": "/main/device",
+      "title": "Device",
+      "icon": "users",
+      "type": "link",
+      "active": false,
+      "privileges": {
+        "roles": ["admin", "bp_root","siswa","cs"]
+      }
+    },
+    {
       "title": "Record",
       "icon": "settings",
       "type": "sub",

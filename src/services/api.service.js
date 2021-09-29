@@ -62,7 +62,13 @@ const ApiService = {
      * @returns {*}
      */
     post(resource, params) {
-        return Vue.axios.post(`${resource}`, params);
+        return Vue.axios.post(`${resource}`, params,
+            {
+                headers:{
+                    "Content-Type":"application/json",
+                    "Accept":"application/json"
+                }
+            });
     },
 
     /**
@@ -73,7 +79,13 @@ const ApiService = {
      * @returns {IDBRequest<IDBValidKey> | Promise<void>}
      */
     update(resource, slug, params) {
-        return Vue.axios.put(`${resource}/${slug}`, params);
+        return Vue.axios.put(`${resource}/${slug}`, params,
+            {
+                headers:{
+                    "Content-Type":"application/json",
+                    "Accept":"application/json"
+                }
+            });
     },
 
     /**
@@ -83,7 +95,13 @@ const ApiService = {
      * @returns {IDBRequest<IDBValidKey> | Promise<void>}
      */
     put(resource, params) {
-        return Vue.axios.put(`${resource}`, params);
+        return Vue.axios.put(`${resource}`, params,
+            {
+                headers:{
+                    "Content-Type":"application/json",
+                    "Accept":"application/json"
+                }
+            });
     },
 
     /**

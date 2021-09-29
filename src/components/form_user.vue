@@ -18,14 +18,6 @@
                     required
                 />
               </v-col>
-              <v-col cols="12">
-                <v-text-field
-                    v-model="form.email"
-                    label="Email*"
-                    required
-                    type="email"
-                />
-              </v-col>
               <v-col v-show="!edit" cols="12">
                 <v-text-field
                     v-model="form.password"
@@ -38,7 +30,7 @@
               <v-col cols="12">
                 <v-autocomplete
                     v-model="form.level"
-                    :items="itemsrole"
+                    :items="userLevel"
                     item-text="name"
                     item-value="id"
                     label="Role*"
@@ -71,13 +63,5 @@ import componentMixin from "@/mixin/component.mixin"
 
 export default {
   mixins: [componentMixin],
-  data: () => {
-    return {
-      form: {
-        active: 1,
-      },
-    };
-  },
-
 };
 </script>

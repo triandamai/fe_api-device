@@ -49,11 +49,11 @@ const actions = {
         password: credentials.password,
       })
         .then(({ success,message,data }) => {
-          console.log(data)
+
           resolve({ success: success, message: message });
           if (success) {
 
-            console.log(data)
+
            commit(SET_AUTH, data);
           }
         })
@@ -77,7 +77,7 @@ const mutations = {
   },
   [SET_AUTH](state, data) {
     state.isAuthenticated = true;
-    state.user = data;
+    state.user = data[0];
     state.errors = {};
     JwtService.setUser(data);
     JwtService.saveToken(data.token);

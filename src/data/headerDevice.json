@@ -1,0 +1,36 @@
+[
+    {
+        "text": "Name",
+        "align": "left",
+        "sortable": true,
+        "value": "deviceName"
+    },
+    {
+        "text": "Mac",
+        "align": "left",
+        "sortable": true,
+        "value": "deviceMac"
+    },
+    {
+        "text": "Type",
+        "align": "left",
+        "sortable": true,
+        "value": "deviceType"
+    },
+    {
+        "text": "Aktivitas Terakhir",
+        "align": "left",
+        "sortable": false,
+        "value": "updatedAt"
+    },
+    {
+        "text": "Created At",
+        "align": "left",
+        "sortable": false,
+        "value": "createdAt"
+    },
+    {
+        "text": "Aksi",
+        "value": "action"
+    }
+]

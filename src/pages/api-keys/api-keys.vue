@@ -8,16 +8,9 @@
           <px-card class="earning-card">
             <div class="row">
               <div class="earning-content col-xl-3 col-lg-12 col-md-12">
-                <div class="row  chart-left">
                   <div class="col-xl-12 left_side_earning">
                     <h5>{{$t('Data User')}}</h5>
                     <p class="font-roboto">{{$t('subtitleuser')}}</p>
-                  </div>
-                  <div class="col-xl-12 left-btn">
-                    <a class="btn btn-gradient" @click="form_import = true"
-                    >{{ $t('Import Siswa') }}</a
-                    >
-                  </div>
                 </div>
               </div>
 
@@ -25,8 +18,7 @@
                 <data-table
                     :items="items"
                     :headers="headers"
-                    @add="onAdd"
-                    @edit="onEdit"
+                    @add="generateApi"
                     @delete="onDelete"
                 />
               </div>
@@ -36,15 +28,6 @@
 
       </div>
     </div>
-    <!-- Container-fluid Ends-->
-    <form-user
-      :show="form"
-      :body="body"
-      :edit="isEdit"
-      @close="form = false"
-      @submit="onSubmit"
-    />
-    <form-import-siswa :show="form_import" @close="form_import = false" />
   </div>
 </template>
 
@@ -95,13 +78,27 @@ export default {
           this.$store.commit('setLoading',false)
         });
     },
-    onSubmit(data) {
+    generateApi() {
+      let id = this.$route.params.id
+      this.$swal({
+        text: this.$t("Generate New Api Key ?"),
+        showCancelButton: true,
+        confirmButtonText: "Oke",
+        confirmButtonColor: "#4466f2",
+        cancelButtonText: "Batal",
+        cancelButtonColor: "#efefef",
+        reverseButtons: true,
+      }).then(({ value }) => {
+
+        if (value) {
       this.$store
         .dispatch(
-          this.isEdit ? ACTION_PUT_DATA_MASTER : ACTION_POST_DATA_MASTER,
+           ACTION_POST_DATA_MASTER,
           {
             type: TYPE_API,
-            body: data,
+            body: {
+              hospital_id:id
+            },
           }
         )
         .then(({ success }) => {
@@ -111,6 +108,8 @@ export default {
             this.body = {};
           }
         });
+        }
+      });
     },
     onDelete(data) {
       this.$swal({
@@ -133,18 +132,6 @@ export default {
 
         }
       });
-    },
-    onAdd() {
-      this.body = { active: 1 };
-      this.form = true;
-      this.isEdit = false;
-    },
-    onEdit(data) {
-
-      this.body = data;
-      this.body.role_id = data.role[0].id
-      this.form = true;
-      this.isEdit = true;
     },
   },
 };

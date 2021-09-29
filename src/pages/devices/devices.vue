@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import header from "@/data/headerUser.json";
+import header from "@/data/headerDevice.json";
 import {
     ACTION_GET_DATA_MASTER,
     ACTION_POST_DATA_MASTER,

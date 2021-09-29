@@ -76,14 +76,19 @@ const actions = {
     },
     /***
      * send data to server
-     * @param {type,path,body}
-     * @returns save data to server the add to array store
+     * @param commit
+     * @param type
+     * @param body
+     * save data to server the add to array store
      * @returns {success,message}
+
      */
     [POST_DATA_MASTER]({commit}, {type, body}) {
         return new Promise((resolve) => {
-            ApiService.post(`${type}`, body)
+            ApiService.post(`${populateEndpoint(type,"POST")}`, body)
                 .then(({success, data, message}) => {
+                    console.log(success)
+                    console.log(data)
                     resolve({success: success, message: message});
                     if (success) {
 
@@ -103,7 +108,7 @@ const actions = {
      */
     [PUT_DATA_MASTER]({commit}, {type, body}) {
         return new Promise((resolve) => {
-            ApiService.put(`${type}/${body.id}`, body)
+            ApiService.put(`${populateEndpoint(type,"PUT")}/${body.id}`, body)
                 .then(({success, data, message}) => {
                     resolve({success: success, message: message});
                     if (success) {
@@ -127,7 +132,7 @@ const actions = {
      */
     [DELETE_DATA_MASTER]({commit}, {type, body}) {
         return new Promise((resolve) => {
-            ApiService.delete(`${type}/${body.id}`)
+            ApiService.delete(`${populateEndpoint(type,"DELETE")}/${body.id}`)
                 .then(({success, message}) => {
                     resolve({success: success, message: message});
                     if (success) {
