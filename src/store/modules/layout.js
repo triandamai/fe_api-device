@@ -1,7 +1,7 @@
 /***
- * Author Bakaran Project
+ * Author PT Cexup Telemedicine
  * Made by Trian Damai
- * 28 Jan 2021 - 10:14
+ * 29 Jan 2021 - 10:14
  *
  */
 import Layout from "@/data/layout";

@@ -179,10 +179,11 @@ export default {
   // },
   created() {
 
-
-    this.role = "tidak memiliki akses";
-
-    //this.group = user.group[0].name;
+    const user = getUser()
+    if(user) {
+      this.role = "Dev";
+      this.username = user.username
+    }
   },
   computed: {
     ...mapState({

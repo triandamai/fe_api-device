@@ -28,10 +28,6 @@
 export const responseInterceptor = ({config,data,status,headers,request}) => {
 
     console.log(data)
-    console.log(config)
-    console.log(headers)
-    console.log(request)
-
     if(status===200||status ===201){
         return {
             success: data.code === 200 || data.code === 201,
@@ -46,7 +42,8 @@ export const responseInterceptor = ({config,data,status,headers,request}) => {
             data: {
                 status:status,
                 header:headers,
-                request:request
+                request:request,
+                config:config
             },
             message:"Error"
         }

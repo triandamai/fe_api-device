@@ -1,12 +1,12 @@
-/* eslint-disable */
 /***
- * Author Bakaran Project
+ * Author PT Cexup Telemedicine
  * Made by Trian Damai
- * 28 Jan 2021 - 10:14
+ * 29 Jan 2021 - 10:14
  *
  */
 import ApiService from "@/services/api.service";
 import JwtService from "@/services/jwt.service";
+import {Promise} from "es6-promise";
 
 
 // action types
@@ -49,12 +49,12 @@ const actions = {
         password: credentials.password,
       })
         .then(({ success,message,data }) => {
-
+          console.log(data)
           resolve({ success: success, message: message });
           if (success) {
-            //
+
             console.log(data)
-           // commit(SET_AUTH, data);
+           commit(SET_AUTH, data);
           }
         })
     });

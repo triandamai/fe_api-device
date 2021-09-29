@@ -1,96 +1,60 @@
-/*eslint-disable*/
+
 /***
- * Author Bakaran Project
+ * Author PT Cexup Telemedicine
  * Made by Trian Damai
- * 28 Jan 2021 - 10:14
+ * 29 Jan 2021 - 10:14
  *
  */
 import ApiService from "@/services/api.service";
+import {Promise} from "es6-promise";
 
-const GETDATAMASTER = `GETDATAMASTER`;
-const POSTDATAMASTER = `POSTMASTERDATA`;
-const PUTDATAMASTER = `PUTMASTERDATA`;
-const DELETEDATAMASTER = `DELETEMASTERDATA`;
+const GET_DATA_MASTER = `GET_DATA_MASTER`;
+const POST_DATA_MASTER = `POST_MASTER_DATA`;
+const PUT_DATA_MASTER = `PUT_MASTER_DATA`;
+const DELETE_DATA_MASTER = `DELETE_MASTER_DATA`;
 
-export const ACTION_GET_DATA_MASTER = `master/${GETDATAMASTER}`;
-export const ACTION_POST_DATA_MASTER = `master/${POSTDATAMASTER}`;
-export const ACTION_PUT_DATA_MASTER = `master/${PUTDATAMASTER}`;
-export const ACTION_DELETE_DATA_MASTER = `master/${DELETEDATAMASTER}`;
+export const ACTION_GET_DATA_MASTER = `master/${GET_DATA_MASTER}`;
+export const ACTION_POST_DATA_MASTER = `master/${POST_DATA_MASTER}`;
+export const ACTION_PUT_DATA_MASTER = `master/${PUT_DATA_MASTER}`;
+export const ACTION_DELETE_DATA_MASTER = `master/${DELETE_DATA_MASTER}`;
 
-const ADDDATAMASTER = `ADDDATAMASTER`;
-const EDITDATAMASTER = `EDITDATAMASTER`;
-const REMOVEDATAMASTER = `REMOVEDATAMASTER`;
+const PUSH_DATA = `ADD_NEW_DATA`;
+const REPLACE_DATA = `REPLACE_DATA`;
+const REMOVE_DATA = `REMOVE_DATA`;
 const INCREMENT_PAGE = `INCREMENT`;
 
-export const MUTATION_ADD_DATA_MASTER = `master/${ADDDATAMASTER}`;
-export const MUTATION_PUT_DATA_MASTER = `master/${EDITDATAMASTER}`;
-export const MUTATION_DELETE_DATA_MASTER = `master/${REMOVEDATAMASTER}`;
+export const MUTATION_ADD_DATA_MASTER = `master/${PUSH_DATA}`;
+export const MUTATION_PUT_DATA_MASTER = `master/${REPLACE_DATA}`;
+export const MUTATION_DELETE_DATA_MASTER = `master/${REMOVE_DATA}`;
 
-export const MAKAD = "akad";
-export const MPRODUK = "produk";
-export const MJABATAN = "jabatan";
-export const MPEGAWAI = "pegawai";
-export const MJENISTRANSAKSI = "jenis-transaksi";
+export const TYPE_HOSPITAL = "TYPE_HOSPITAL"
+export const TYPE_DEVICE = "TYPE_DEVICE"
+export const TYPE_API = "TYPE_API"
+export const TYPE_USER = "TYPE_USER"
+export const TYPE_MEASUREMENT = "TYPE_MEASUREMENT"
+
 
 const state = {
-    dataakad: [],
-    akad: {
-        current_page: 1,
-        last_page: 0,
-    },
-    datajenistransaksi: [],
-    jenistransaksi: {
-        current_page: 1,
-        last_page: 0,
-    },
-    dataproduk: [],
-    produk: {
-        current_page: 0,
-        last_page: 0,
-    },
-    datajabatan: [],
-    jabatan: {
-        current_page: 1,
-        last_page: 0,
-    },
-    datapegawai: [],
-    pegawai: {
-        current_page: 1,
-        last_page: 0,
-    },
-    formpegawai: {},
+    dataHospital:[],
+    dataApi:[],
+    dataUser:[],
+    dataDevice:[],
+    dataMeasurement:[],
+    page:0
 };
 const getters = {};
 const actions = {
     /***
      * get data
-     * @param {type,path,id}
-     * @returns prmise true/false
-     * and add data to array smoothly
+     * and add data to array with synchronized
      * @param type
+     * @param {commit,state}
+     * @returns promise true/false
      */
-    [GETDATAMASTER]({commit, state}, {type}) {
+    [GET_DATA_MASTER]({commit}, {type}) {
         return new Promise((resolve) => {
-            //get current page
-            let page = `?page=`;
-            switch (type) {
-                case MAKAD:
-                    page += state.akad.current_page;
-                    break;
-                case MJABATAN:
-                    page += state.jabatan.current_page;
-                    break;
-                case MPEGAWAI:
-                    page += state.pegawai.current_page;
-                    break;
-                case MPRODUK:
-                    page += state.produk.current_page;
-                    break;
-                case MJENISTRANSAKSI:
-                    page += state.jenistransaksi.current_page;
-                    break;
-            }
-            ApiService.get(`${type}${page}`)
+
+            ApiService.get(`${populateEndpoint(type)}`)
                 .then(({success, data, shouldNext}) => {
 
                     if (success) {
@@ -102,7 +66,7 @@ const actions = {
                         }
                     }
                     data.map((item) => {
-                        commit(ADDDATAMASTER, {
+                        commit(PUSH_DATA, {
                             type: type,
                             data: item,
                         });
@@ -119,16 +83,16 @@ const actions = {
      * @param type
      * @param body
      */
-    [POSTDATAMASTER]({commit}, {type, body}) {
+    [POST_DATA_MASTER]({commit}, {type, body}) {
         return new Promise((resolve) => {
             ApiService.post(`${type}`, body)
                 .then(({success, data, message}) => {
                     resolve({success: success, message: message});
                     if (success) {
 
-                        commit(ADDDATAMASTER, {
+                        commit(PUSH_DATA, {
                             type: type,
-                            data: data[0],
+                            data: data,
                         });
                     }
                 })
@@ -140,7 +104,7 @@ const actions = {
      * update data to server the notify the data was changed
      * @returns
      */
-    [PUTDATAMASTER]({commit}, {type, body}) {
+    [PUT_DATA_MASTER]({commit}, {type, body}) {
         return new Promise((resolve) => {
             ApiService.put(`${type}/${body.id}`, body)
                 .then(({success, data, message}) => {
@@ -164,7 +128,7 @@ const actions = {
      * @param type
      * @param body
      */
-    [DELETEDATAMASTER]({commit}, {type, body}) {
+    [DELETE_DATA_MASTER]({commit}, {type, body}) {
         return new Promise((resolve) => {
             ApiService.delete(`${type}/${body.id}`)
                 .then(({success, message}) => {
@@ -180,143 +144,123 @@ const actions = {
     },
 };
 const mutations = {
+
+    [INCREMENT_PAGE](state) {
+        state.page = +1
+    },
     /***
      * adding data to each state
      * @param {type,data,page}
      * @returns data will be add one -by one
      * @param state
      */
-    [INCREMENT_PAGE](state, {type}) {
-        switch (type) {
-            case MAKAD:
-                state.akad.current_page++;
-                break;
-            case MJABATAN:
-                state.jabatan.current_page++;
-                break;
-            case MJENISTRANSAKSI:
-                state.jenistransaksi.current_page++;
-                break;
-            case MPEGAWAI:
-                state.pegawai.current_page++;
-                break;
-            case MPRODUK:
-                state.produk.current_page++;
-                break;
-        }
-    },
-    [ADDDATAMASTER](state, {type, data}) {
-        if (type === MAKAD) {
+    [PUSH_DATA](state, {type, data}) {
+        //assume the data is array
+        data.forEach((element)=>{
 
-            const exist = state.dataakad.some((akad) => akad.id === data.id);
-            if (!exist) {
-                state.dataakad.push(data);
+            const exist = () =>{
+                if(type === TYPE_HOSPITAL)return   state.dataHospital.some(hospital=>hospital.id === element.id)
+                if(type === TYPE_USER)return state.dataUser.some(user=>user.id === element.id)
+                if(type === TYPE_DEVICE) return state.dataDevice.some(device=> device.id === element.id)
+                if(type === TYPE_API) return state.dataApi.some(api=>api.id === element.id)
+                if(type === TYPE_MEASUREMENT) return state.dataMeasurement.some(measurement=> measurement.id === element.id)
+                return false
             }
-        }
-        if (type === MJABATAN) {
-            const exist = state.datajabatan.some((jabatan) => jabatan.id === data.id);
-            if (!exist) {
-                state.datajabatan.push(data);
+            if(exist){
+                if(type === TYPE_HOSPITAL){
+                    state.dataHospital.push(element)
+                }
+                if(type === TYPE_USER){
+                    state.dataUser.push(element)
+                }
+                if(type === TYPE_DEVICE){
+                    state.dataDevice.push(element)
+                }
+                if(type === TYPE_API){
+                    state.dataApi.push(element)
+                }
+                if(type === TYPE_MEASUREMENT){
+                    state.dataMeasurement.push(element)
+                }
             }
+        })
 
-        }
-        if (type === MJENISTRANSAKSI) {
-            // console.log(data);
-            const exist = state.datajenistransaksi.some((jenis) => jenis.id === data.id);
-            if (!exist) {
-                state.datajenistransaksi.push(data);
-            }
-        }
-        if (type === MPEGAWAI) {
-            const exist = state.datapegawai.some((pegawai) => pegawai.id === data.id);
-            if (!exist) {
-                state.datapegawai.push(data);
-            }
-        }
-        if (type === MPRODUK) {
-            const exist = state.dataproduk.some((produk) => produk.id === data.id);
-            if (!exist) {
-                state.dataproduk.push(data);
-            }
-        }
     },
     /***
      * Update data
-     * @params {state,type,data,olddata}
+     * @params {state,type,data,oldData}
      * update item inside array state data
-     * @returns change reactivly
+     * @return replace the old data
      */
-    [EDITDATAMASTER]
-        (state, {type, data, olddata}) {
+    [REPLACE_DATA](state, {type, data, oldData}) {
+        const index = ()=>{
+            if (type === TYPE_HOSPITAL) return state.dataHospital.map(hospital=>hospital.id).indexOf(oldData.id)
+            if(type === TYPE_API)return state.dataApi.map(api=>api.id).indexOf(oldData.id)
+            if(type === TYPE_DEVICE) return state.dataDevice.map(device=>device.id).indexOf(oldData.id)
+            if(type === TYPE_USER) return state.dataUser.map(user=>user.id).indexOf(oldData.id)
+            if (type === TYPE_MEASUREMENT) return state.dataMeasurement.map(measurement=> measurement.id).indexOf(oldData.id)
+            return undefined
+        }
+        if(index){
+            if(type === TYPE_HOSPITAL)
+                Object.assign(state.dataHospital[index],data)
 
-        if (type === MAKAD) {
-            const index = state.dataakad.map((akad) => akad.id).indexOf(olddata.id);
-            Object.assign(state.dataakad[index], data);
-        }
-        if (type === MJABATAN) {
-            const index = state.datajabatan
-                .map((jabatan) => jabatan.id)
-                .indexOf(olddata.id);
-            Object.assign(state.datajabatan[index], data);
-        }
-        if (type === MJENISTRANSAKSI) {
-            console.log(type);
-            const index = state.datajenistransaksi
-                .map((jenis) => jenis.id)
-                .indexOf(olddata.id);
-            Object.assign(state.datajenistransaksi[index], data);
-        }
-        if (type === MPEGAWAI) {
-            const index = state.datapegawai
-                .map((pegawai) => pegawai.id)
-                .indexOf(olddata.id);
-            Object.assign(state.datapegawai[index], data);
-        }
-        if (type === MPRODUK) {
-            const index = state.dataproduk
-                .map((produk) => produk.id)
-                .indexOf(olddata.id);
-            Object.assign(state.dataproduk[index], data);
-        }
+            if(type === TYPE_API)
+                Object.assign(state.dataApi[index],data)
 
+            if(type === TYPE_DEVICE)
+                Object.assign(state.dataDevice[index],data)
+
+            if(type === TYPE_USER)
+                Object.assign(state.dataUser[index],data)
+
+            if(type === TYPE_MEASUREMENT)
+                Object.assign(state.dataMeasurement[index],data)
+
+        }
     },
     /***
      * delete data y index
      * @params {state,type,data}
      * @return remove data by index
      */
-    [REMOVEDATAMASTER](state, {type, data}) {
-        if (type === MAKAD) {
-            const index = state.dataakad.map((akad) => akad.id).indexOf(data.id);
-            state.dataakad.splice(index,1);
+    [REMOVE_DATA](state, {type, data}) {
+        const index = ()=> {
+            if (type === TYPE_HOSPITAL) return state.dataHospital.map(hospital => hospital.id).indexOf(data.id)
+            if(type === TYPE_API) return state.dataApi.map(api=>api.id).indexOf(data.id)
+            if(type === TYPE_DEVICE) return state.dataDevice.map(device=>device.id).indexOf(data.id)
+            if(type === TYPE_USER) return state.dataUser.map(user=>user.id).indexOf(data.id)
+            if(type === TYPE_MEASUREMENT) return state.dataMeasurement.map(measurement=>measurement.id).indexOf(data.id)
         }
-        if (type === MJABATAN) {
-            const index = state.datajabatan
-                .map((jabatan) => jabatan.id)
-                .indexOf(data.id);
-            state.datajabatan.splice(index,1);
-        }
-        if (type === MJENISTRANSAKSI) {
-            const index = state.datajenistransaksi
-                .map((jenis) => jenis.id)
-                .indexOf(data.id);
-            state.datajenistransaksi.splice(index,1);
-        }
-        if (type === MPEGAWAI) {
-            const index = state.datapegawai
-                .map((pegawai) => pegawai.id)
-                .indexOf(data.id);
-            state.datapegawai.splice(index,1);
-        }
-        if (type === MPRODUK) {
-            const index = state.dataproduk
-                .map((produk) => produk.id)
-                .indexOf(data.id);
-            state.dataproduk.splice(index,1);
+        if(index()){
+            if(type === TYPE_HOSPITAL)
+                state.dataHospital.splice(index,1)
+
+            if(type === TYPE_API)
+                state.dataHospital.splice(index,1)
+
+            if(type === TYPE_DEVICE)
+                state.dataHospital.splice(index,1)
+
+            if(type === TYPE_USER)
+                state.dataHospital.splice(index,1)
+
+            if(type === TYPE_MEASUREMENT)
+                state.dataHospital.splice(index,1)
         }
 
     }
 
+}
+
+/**
+ * get EndPoint base on type
+ * @return String
+ * **/
+const populateEndpoint=(type)=>{
+
+    if(type === TYPE_HOSPITAL) return  ""
+    return ""
 }
 
 

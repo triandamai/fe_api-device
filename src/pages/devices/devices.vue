@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     ...mapState({
-      items: (state) => state.system.datausers,
+      items: (state) => state.master.dataDevice,
     }),
   },
   created() {
