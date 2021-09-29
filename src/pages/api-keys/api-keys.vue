@@ -51,12 +51,12 @@
 <script>
 import header from "@/data/headeruser.json";
 import {
-  ACTION_DELETE_DATA_SYSTEM,
-  ACTION_GET_DATA_SYSTEM,
-  ACTION_POST_DATA_SYSTEM,
-  ACTION_PUT_DATA_SYSTEM,
-  SUSER,
-} from "@/store/modules/system";
+  ACTION_GET_DATA_MASTER,
+    ACTION_POST_DATA_MASTER,
+    ACTION_PUT_DATA_MASTER,
+    ACTION_DELETE_DATA_MASTER,
+    TYPE_API
+} from "@/store";
 import { mapState } from "vuex";
 import pageMixin from "@/mixin/page.mixin"
 export default {
@@ -79,8 +79,8 @@ export default {
   methods: {
     getData() {
       this.$store
-        .dispatch(ACTION_GET_DATA_SYSTEM, {
-          type: SUSER,
+        .dispatch(ACTION_GET_DATA_MASTER, {
+          type: TYPE_API,
         })
         .then((isNext) => {
           if (isNext) {
@@ -92,9 +92,9 @@ export default {
     onSubmit(data) {
       this.$store
         .dispatch(
-          this.isEdit ? ACTION_PUT_DATA_SYSTEM : ACTION_POST_DATA_SYSTEM,
+          this.isEdit ? ACTION_PUT_DATA_MASTER : ACTION_POST_DATA_MASTER,
           {
-            type: SUSER,
+            type: TYPE_API,
             body: data,
           }
         )
@@ -119,8 +119,8 @@ export default {
 
         if (value) {
           this.$store
-            .dispatch(ACTION_DELETE_DATA_SYSTEM, {
-              type: SUSER,
+            .dispatch(ACTION_DELETE_DATA_MASTER, {
+              type: TYPE_API,
 
               body: data,
             })
