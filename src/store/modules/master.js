@@ -54,7 +54,7 @@ const actions = {
     [GET_DATA_MASTER]({commit}, {type}) {
         return new Promise((resolve) => {
 
-            ApiService.get(`${populateEndpoint(type)}`)
+            ApiService.get(`${populateEndpoint(type,"GET")}`)
                 .then(({success, data, shouldNext}) => {
 
                     if (success) {
@@ -65,11 +65,10 @@ const actions = {
                             resolve(false);
                         }
                     }
-                    data.map((item) => {
-                        commit(PUSH_DATA, {
-                            type: type,
-                            data: item,
-                        });
+
+                    commit(PUSH_DATA, {
+                        type: type,
+                        data: data,
                     });
                 })
         });
@@ -79,9 +78,6 @@ const actions = {
      * @param {type,path,body}
      * @returns save data to server the add to array store
      * @returns {success,message}
-     *
-     * @param type
-     * @param body
      */
     [POST_DATA_MASTER]({commit}, {type, body}) {
         return new Promise((resolve) => {
@@ -110,10 +106,10 @@ const actions = {
                 .then(({success, data, message}) => {
                     resolve({success: success, message: message});
                     if (success) {
-                        commit(EDITDATAMASTER, {
+                        commit(REPLACE_DATA, {
                             type: type,
-                            data: data[0],
-                            olddata: body,
+                            data: data,
+                            oldData: body,
                         });
 
                     }
@@ -134,7 +130,7 @@ const actions = {
                 .then(({success, message}) => {
                     resolve({success: success, message: message});
                     if (success) {
-                        commit(REMOVEDATAMASTER, {
+                        commit(REMOVE_DATA, {
                             type: type,
                             data: body,
                         });
@@ -257,9 +253,17 @@ const mutations = {
  * get EndPoint base on type
  * @return String
  * **/
-const populateEndpoint=(type)=>{
+const populateEndpoint=(type,method)=>{
 
-    if(type === TYPE_HOSPITAL) return  ""
+    if(method === "GET") {
+        if (type === TYPE_HOSPITAL) return ""
+    }else if (method === "POST"){
+        if (type === TYPE_HOSPITAL) return ""
+    }else if(method === "PUT"){
+        if (type === TYPE_HOSPITAL) return ""
+    }else if(method === "DELETE"){
+        if (type === TYPE_HOSPITAL) return ""
+    }
     return ""
 }
 
