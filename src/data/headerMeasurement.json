@@ -6,28 +6,28 @@
         "value": "id"
     },
     {
-        "text": "Hospital",
+        "text": "Type",
         "align": "left",
         "sortable": true,
-        "value": "hospital"
+        "value": "type"
     },
     {
-        "text": "Api Key",
+        "text": "Device",
         "align": "left",
         "sortable": true,
-        "value": "value"
+        "value": "device"
     },
     {
         "text": "Aktivitas Terakhir",
         "align": "left",
         "sortable": false,
-        "value": "updatedAt"
+        "value": "updated_at"
     },
     {
-        "text": "Dibuat Pada",
+        "text": "Created At",
         "align": "left",
         "sortable": false,
-        "value": "createdAt"
+        "value": "created_at"
     },
     {
         "text": "Aksi",

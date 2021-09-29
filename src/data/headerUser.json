@@ -15,13 +15,19 @@
         "text": "Status",
         "align": "left",
         "sortable": true,
-        "value": "active"
+        "value": "level"
     },
     {
         "text": "Aktivitas Terakhir",
         "align": "left",
         "sortable": false,
-        "value": "last_login"
+        "value": "updatedAt"
+    },
+    {
+        "text": "Created At",
+        "align": "left",
+        "sortable": false,
+        "value": "createdAt"
     },
     {
         "text": "Aksi",

@@ -59,7 +59,7 @@ const routes = [
                 },
             },
             {
-                path: "api",
+                path: "api/:id",
                 name: "api",
                 component: () => import("@/pages/api-keys/api-keys.vue"),
                 meta: {

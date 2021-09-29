@@ -23,17 +23,7 @@
     },
     {
       "path": "/main/hospital",
-      "title": "Hospital",
-      "icon": "users",
-      "type": "link",
-      "active": false,
-      "privileges": {
-        "roles": ["admin", "bp_root","siswa","cs"]
-      }
-    },
-    {
-      "path": "/main/api",
-      "title": "Api Keys",
+      "title": "Hospital Api Key",
       "icon": "users",
       "type": "link",
       "active": false,

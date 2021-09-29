@@ -22,45 +22,26 @@
         :loading="loadingtable"
         :loading-text="$t('Wait Loading')"
         flat :headers="headers" :items="items" :search="search">
-      <template v-slot:item.tempat_lahir="{item}">
-        {{`${item.tempat_lahir},${item.tanggal_lahir}`}}
+      <template v-slot:item.hospital_id="{item}">
+        <router-link :to="'api/'+item.hospital_id">{{item.hospital_id}}</router-link>
       </template>
-      <template v-slot:item.saldo_minimum="{item}">
-        Rp {{formatCurrency(item.saldo_minimum)}}
+      <template v-slot:item.hospital="{item}">
+       {{item.hospital.name}}
       </template>
-      <template v-slot:item.no_rekening="{ item }">
-        <router-link :to="getRouteMutasi(item)"> {{item.no_rekening }}</router-link>
-      </template>
-      <template v-slot:item.jenis_kelamin="{ item }">
-        {{item.jenis_kelamin === "L" ? $t('Male'):$t('Female')}}
-      </template>
-      <template v-slot:item.pegawai="{ item }">
-        {{item.pegawai.fullname}}
-      </template>
-      <template v-slot:item.modal="{ item }">
-       Rp {{formatCurrency(item.modal)}}
-      </template>
-      <template v-slot:item.jabatan="{ item }">
-        {{item.jabatan.nama_jabatan}}
-      </template>
-      <template v-slot:item.tipe_produk="{ item }">
-        {{getTipeProduk(item.tipe_produk)}}
-      </template>
-      <template v-slot:item.lama_angsuran="{ item }">
-        {{item.tipe_angsuran === 1 ? `${item.lama_angsuran} ${$t('Weeks')}`:`${item.lama_angsuran} ${$t('Days')}`}}
-      </template>
-      <template v-slot:item.nasabah="{ item }">
-        {{item.nasabah.nama_lengkap}}
-      </template>
-      <template v-slot:item.produk="{ item }">
-        {{item.produk.nama_produk}}
-      </template>
-      <template v-slot:item.active="{ item }">
+      <template v-slot:item.level="{ item }">
         <v-chip
-            :color="getColor(item.active)"
+            :color="getColor(item.level)"
             dark
         >
-          {{ item.active > 0 ? 'Aktif':'Non-Aktif' }}
+          {{ item.level }}
+        </v-chip>
+      </template>
+      <template v-slot:item.device="{ item }">
+        <v-chip
+            :color="'green'"
+            dark
+        >
+          {{ item.device.deviceMac }}
         </v-chip>
       </template>
       <template v-slot:item.updated_at="{ item }">
@@ -111,8 +92,10 @@ export default {
     }),
   },
   methods:{
-    getColor (active) {
-      if (active > 0) return 'green'
+    getColor (level) {
+      if (level === 'DEV') return 'cyan'
+      if (level === 'ADMIN') return 'blue'
+      if (level === 'USER') return 'green'
       return 'orange'
 
     },

@@ -48,13 +48,14 @@ const actions = {
      * get data
      * and add data to array with synchronized
      * @param type
+     * @param slug
      * @param {commit,state}
      * @returns promise true/false
      */
-    [GET_DATA_MASTER]({commit}, {type}) {
+    [GET_DATA_MASTER]({commit}, {type,slug=""}) {
         return new Promise((resolve) => {
 
-            ApiService.get(`${populateEndpoint(type,"GET")}`)
+            ApiService.get(`${populateEndpoint(type,"GET")}${slug}`)
                 .then(({success, data, shouldNext}) => {
 
                     if (success) {
@@ -163,7 +164,6 @@ const mutations = {
             }
 
             let isExist = exist()
-
             if(!isExist){
                 if(type === TYPE_HOSPITAL){
                     state.dataHospital.push(element)

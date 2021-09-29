@@ -75,13 +75,18 @@ export default {
   },
   created() {
     this.$store.commit('setLoading',true)
-    this.getData();
+    let id = this.$route.params.id
+    if(id){
+      this.getData(id);
+    }
+
   },
   methods: {
-    getData() {
+    getData(id) {
       this.$store
         .dispatch(ACTION_GET_DATA_MASTER, {
           type: TYPE_API,
+          slug:`/hospital/${id}`
         })
         .then((isNext) => {
           if (isNext) {

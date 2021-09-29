@@ -1,21 +1,33 @@
 [
     {
-        "text": "No",
+        "text": "ID",
         "align": "left",
         "sortable": false,
-        "value": "id"
+        "value": "hospital_id"
     },
     {
         "text": "Hospital",
         "align": "left",
         "sortable": true,
-        "value": "hospital"
+        "value": "hospital_name"
     },
     {
-        "text": "Api Key",
+        "text": "Domain",
         "align": "left",
         "sortable": true,
-        "value": "value"
+        "value": "domain"
+    },
+    {
+        "text": "Email",
+        "align": "left",
+        "sortable": true,
+        "value": "email"
+    },
+    {
+        "text": "Telp",
+        "align": "left",
+        "sortable": true,
+        "value": "telp"
     },
     {
         "text": "Aktivitas Terakhir",
