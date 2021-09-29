@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import header from "@/data/headeruser.json";
+import header from "@/data/headerApi.json";
 import {
   ACTION_GET_DATA_MASTER,
     ACTION_POST_DATA_MASTER,
@@ -69,7 +69,8 @@ export default {
   },
   computed: {
     ...mapState({
-      items: (state) => state.master.dataApi,
+      items: (state) => state.master.dataApi
+      ,
     }),
   },
   created() {

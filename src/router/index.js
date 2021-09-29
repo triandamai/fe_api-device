@@ -1,13 +1,11 @@
 /**
  * Author Trian Damai
- * Bakaran Project
+ * PT Cexup Telemedicine
  */
 import Vue from "vue";
 import Router from "vue-router";
 import ApiService from "@/services/api.service";
 import {getUser} from "@/services/jwt.service";
-import {checkPrivilage} from "@/utils/utils";
-// component
 
 Vue.use(Router);
 
@@ -27,13 +25,13 @@ const routes = [
      */
     {path: "", redirect: {name: "dashboard"}},
     /**
-     * in this route all children reqiresAuth for access
+     * in this route all children requiresAuth for access
      */
     {
         path: "/main",
         component: () => import("@/components/body"),
         meta: {
-            reqiresAuth: true,
+            requiresAuth: true,
         },
         children: [
             {
@@ -46,39 +44,57 @@ const routes = [
                 component: () => import("@/pages/dashboard/dashboard.vue"),
                 meta: {
                     title: "Dashboard | Bank Falah Syariah",
-                    reqiresAuth: true,
+                    requiresAuth: true,
                     roles: ["public"]
                 },
             },
-       
-            {
-                path: "mutasi/pembiayaan",
-                name: "detail-rekening-simpanan",
-                component: () => import("@/pages/detail-rekening/detail-rekening-pembiayaan.vue"),
-                meta: {
-                    title: "Mutasi | Bank Falah Syariah",
-                    reqiresAuth: true,
-                    roles: ["admin", "bp_root", "siswa", "cs", "teller"]
-                }
-            },
-            {
-                path: "mutasi/simpanan/",
-                name: "detail-rekening-pembiayaan",
-                component: () => import("@/pages/detail-rekening/detail-rekening-simpanan.vue"),
-                meta: {
-                    title: "Mutasi | Bank Falah Syariah",
-                    reqiresAuth: true,
-                    roles: ["admin", "bp_root", "siswa", "cs", "teller"]
-                }
-            },
-            //
             {
                 path: "user",
                 name: "user",
                 component: () => import("@/pages/users/user.vue"),
                 meta: {
-                    title: "User | Bank Falah Syariah",
-                    reqiresAuth: true,
+                    title: "Api-Device | Management",
+                    requiresAuth: true,
+                    roles: ["admin", "bp_root"]
+                },
+            },
+            {
+                path: "api",
+                name: "api",
+                component: () => import("@/pages/api-keys/api-keys.vue"),
+                meta: {
+                    title: "Api-Device | Management",
+                    requiresAuth: true,
+                    roles: ["admin", "bp_root"]
+                },
+            },
+            {
+                path: "device",
+                name: "device",
+                component: () => import("@/pages/devices/devices.vue"),
+                meta: {
+                    title: "Api-Device | Management",
+                    requiresAuth: true,
+                    roles: ["admin", "bp_root"]
+                },
+            },
+            {
+                path: "measurement",
+                name: "device",
+                component: () => import("@/pages/measurements/measurements.vue"),
+                meta: {
+                    title: "Api-Device | Management",
+                    requiresAuth: true,
+                    roles: ["admin", "bp_root"]
+                },
+            },
+            {
+                path: "hospital",
+                name: "hospital",
+                component: () => import("@/pages/hospitals/hospitals"),
+                meta: {
+                    title: "Api-Device | Management",
+                    requiresAuth: true,
                     roles: ["admin", "bp_root"]
                 },
             },
@@ -88,7 +104,7 @@ const routes = [
                 component: () => import("@/pages/error/not-authorized.vue"),
                 meta: {
                     title: "Unlock | Bank Falah Syariah",
-                    reqiresAuth: false,
+                    requiresAuth: false,
                     roles: ["public"]
                 },
             }
@@ -101,7 +117,7 @@ const routes = [
         component: () => import("@/pages/auth/login.vue"),
         meta: {
             title: "Login | Bank Falah Syariah",
-            reqiresAuth: false,
+            requiresAuth: false,
             roles: ["admin", "bp_root", "siswa", "public"]
         },
     },
@@ -111,7 +127,7 @@ const routes = [
         component: () => import("@/pages/auth/unlock_user"),
         meta: {
             title: "Unlock | Bank Falah Syariah",
-            reqiresAuth: true,
+            requiresAuth: true,
             roles: ["admin", "bp_root", "siswa", "public"]
         },
     },
@@ -140,7 +156,7 @@ router.beforeEach((to, from, next) => {
     ApiService.setHeader();
     const user = getUser();
     if (to.meta.title) document.title = to.meta.title;
-    if (to.meta.reqiresAuth) {
+    if (to.meta.requiresAuth) {
         if (user) {
             next()
         } else {

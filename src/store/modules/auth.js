@@ -44,7 +44,7 @@ const actions = {
    */
   [LOGIN]({ commit }, credentials) {
     return new Promise((resolve,) => {
-      ApiService.post("login", {
+      ApiService.post("/api/login", {
         username: credentials.username,
         password: credentials.password,
       })

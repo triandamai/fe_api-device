@@ -37,7 +37,7 @@
 
               <v-col cols="12">
                 <v-autocomplete
-                    v-model="form.role_id"
+                    v-model="form.level"
                     :items="itemsrole"
                     item-text="name"
                     item-value="id"
@@ -66,7 +66,7 @@
 </template>
 <script>
 
-import {ACTION_GET_DATA_SYSTEM, SROLE} from "@/store"
+
 import componentMixin from "@/mixin/component.mixin"
 
 export default {
@@ -78,17 +78,6 @@ export default {
       },
     };
   },
-  created() {
-    this.getDataRoles()
-  },
-  methods: {
-    getDataRoles() {
-      this.$store.dispatch(ACTION_GET_DATA_SYSTEM, {type: SROLE}).then((isNext) => {
-        if (isNext) {
-          this.getDataRoles()
-        }
-      })
-    }
-  },
+
 };
 </script>

@@ -5,7 +5,7 @@
       "headTitle2": "Dashboards,features & data.",
       "type": "headtitle",
       "path": "General",
-      "privilage": {
+      "privileges": {
         "roles": ["admin", "bp_root","siswa","public"]
 
       }
@@ -16,28 +16,28 @@
       "icon": "codesandbox",
       "type": "link",
       "active": false,
-      "privilage": {
+      "privileges": {
         "roles": ["admin", "bp_root","siswa","public"]
 
       }
     },
     {
-      "path": "/main/nasabah/add",
+      "path": "/main/hospital",
       "title": "Hospital",
       "icon": "users",
       "type": "link",
       "active": false,
-      "privilage": {
+      "privileges": {
         "roles": ["admin", "bp_root","siswa","cs"]
       }
     },
     {
-      "path": "/main/nasabah/add",
+      "path": "/main/api",
       "title": "Api Keys",
       "icon": "users",
       "type": "link",
       "active": false,
-      "privilage": {
+      "privileges": {
         "roles": ["admin", "bp_root","siswa","cs"]
       }
     },
@@ -49,15 +49,15 @@
       "badgeValue": "3",
       "active": false,
       "path": "System",
-      "privilage": {
+      "privileges": {
         "roles": ["admin", "bp_root","siswa"]
       },
       "children": [
         {
-          "path": "/main/user",
+          "path": "/main/measurement",
           "title": "Measurement",
           "type": "link",
-          "privilage": {
+          "privileges": {
             "roles": ["admin", "bp_root"]
           }
         }
@@ -68,7 +68,7 @@
       "headTitle2": "Settings,Role & Group",
       "type": "headtitle",
       "path": "Advance",
-      "privilage": {
+      "privileges": {
         "roles": ["admin", "bp_root"]
       }
     },
@@ -80,7 +80,7 @@
       "badgeValue": "3",
       "active": false,
       "path": "System",
-      "privilage": {
+      "privileges": {
         "roles": ["admin", "bp_root","siswa"]
       },
       "children": [
@@ -88,15 +88,7 @@
           "path": "/main/user",
           "title": "User",
           "type": "link",
-          "privilage": {
-            "roles": ["admin", "bp_root"]
-          }
-        },
-        {
-          "path": "/main/user",
-          "title": "Device",
-          "type": "link",
-          "privilage": {
+          "privileges": {
             "roles": ["admin", "bp_root"]
           }
         }

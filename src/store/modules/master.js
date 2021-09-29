@@ -153,7 +153,6 @@ const mutations = {
     [PUSH_DATA](state, {type, data}) {
         //assume the data is array
         data.forEach((element)=>{
-
             const exist = () =>{
                 if(type === TYPE_HOSPITAL)return   state.dataHospital.some(hospital=>hospital.id === element.id)
                 if(type === TYPE_USER)return state.dataUser.some(user=>user.id === element.id)
@@ -162,7 +161,10 @@ const mutations = {
                 if(type === TYPE_MEASUREMENT) return state.dataMeasurement.some(measurement=> measurement.id === element.id)
                 return false
             }
-            if(exist){
+
+            let isExist = exist()
+
+            if(!isExist){
                 if(type === TYPE_HOSPITAL){
                     state.dataHospital.push(element)
                 }
@@ -197,7 +199,8 @@ const mutations = {
             if (type === TYPE_MEASUREMENT) return state.dataMeasurement.map(measurement=> measurement.id).indexOf(oldData.id)
             return undefined
         }
-        if(index){
+        let idx = index()
+        if(idx){
             if(type === TYPE_HOSPITAL)
                 Object.assign(state.dataHospital[index],data)
 
@@ -221,28 +224,29 @@ const mutations = {
      * @return remove data by index
      */
     [REMOVE_DATA](state, {type, data}) {
-        const index = ()=> {
+        const index = () => {
             if (type === TYPE_HOSPITAL) return state.dataHospital.map(hospital => hospital.id).indexOf(data.id)
             if(type === TYPE_API) return state.dataApi.map(api=>api.id).indexOf(data.id)
             if(type === TYPE_DEVICE) return state.dataDevice.map(device=>device.id).indexOf(data.id)
             if(type === TYPE_USER) return state.dataUser.map(user=>user.id).indexOf(data.id)
             if(type === TYPE_MEASUREMENT) return state.dataMeasurement.map(measurement=>measurement.id).indexOf(data.id)
         }
-        if(index()){
+        let idx = index()
+        if(idx){
             if(type === TYPE_HOSPITAL)
-                state.dataHospital.splice(index,1)
+                state.dataHospital.splice(idx,1)
 
             if(type === TYPE_API)
-                state.dataHospital.splice(index,1)
+                state.dataHospital.splice(idx,1)
 
             if(type === TYPE_DEVICE)
-                state.dataHospital.splice(index,1)
+                state.dataHospital.splice(idx,1)
 
             if(type === TYPE_USER)
-                state.dataHospital.splice(index,1)
+                state.dataHospital.splice(idx,1)
 
             if(type === TYPE_MEASUREMENT)
-                state.dataHospital.splice(index,1)
+                state.dataHospital.splice(idx,1)
         }
 
     }
@@ -255,16 +259,24 @@ const mutations = {
  * **/
 const populateEndpoint=(type,method)=>{
 
-    if(method === "GET") {
-        if (type === TYPE_HOSPITAL) return ""
-    }else if (method === "POST"){
-        if (type === TYPE_HOSPITAL) return ""
-    }else if(method === "PUT"){
-        if (type === TYPE_HOSPITAL) return ""
-    }else if(method === "DELETE"){
-        if (type === TYPE_HOSPITAL) return ""
+    const route =(suffix)=>{
+        if (type === TYPE_HOSPITAL) return `/api/hospital${suffix}`
+        if(type === TYPE_USER) return `/api/user${suffix}`
+        if(type === TYPE_DEVICE) return `/api/device${suffix}`
+        if(type === TYPE_MEASUREMENT) return `/api/measurement${suffix}`
+        if(type === TYPE_API) return `/api/api-key${suffix}`
     }
-    return ""
+
+    if(method === "GET") {
+       return route('s')
+    }else if (method === "POST"){
+       return route('')
+    }else if(method === "PUT"){
+        return route('')
+    }else if(method === "DELETE"){
+        return route('')
+    }
+    return "unknown"
 }
 
 

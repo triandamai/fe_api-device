@@ -410,9 +410,6 @@ export default {
       app_name:getAppname()
     };
   },
-  beforeMount() {
-   this.$store.dispatch('menu/getMenu')
-  },
   computed: {
     ...mapState({
       menuItems: (state) => state.menu.menu

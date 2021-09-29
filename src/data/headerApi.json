@@ -1,0 +1,36 @@
+[
+    {
+        "text": "No",
+        "align": "left",
+        "sortable": false,
+        "value": "id"
+    },
+    {
+        "text": "Hospital",
+        "align": "left",
+        "sortable": true,
+        "value": "hospitalId"
+    },
+    {
+        "text": "Api Key",
+        "align": "left",
+        "sortable": true,
+        "value": "value"
+    },
+    {
+        "text": "Aktivitas Terakhir",
+        "align": "left",
+        "sortable": false,
+        "value": "updatedAt"
+    },
+    {
+        "text": "Dibuat Pada",
+        "align": "left",
+        "sortable": false,
+        "value": "createdAt"
+    },
+    {
+        "text": "Aksi",
+        "value": "action"
+    }
+]
