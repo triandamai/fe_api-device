@@ -15,7 +15,7 @@
                   </div>
                   <div class="col-xl-12 left-btn">
                     <a class="btn btn-gradient" @click="form_import = true"
-                    >{{ $t('Import Siswa') }}</a
+                    >{{ $t('Import User') }}</a
                     >
                   </div>
                 </div>
@@ -44,7 +44,6 @@
       @close="form = false"
       @submit="onSubmit"
     />
-    <form-import-siswa :show="form_import" @close="form_import = false" />
   </div>
 </template>
 

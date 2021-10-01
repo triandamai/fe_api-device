@@ -10,11 +10,13 @@ import {Promise} from "es6-promise";
 
 const GET_DATA_MASTER = `GET_DATA_MASTER`;
 const POST_DATA_MASTER = `POST_MASTER_DATA`;
+const IMPORT_DATA_MASTER = `IMPORT_MASTER_DATA`;
 const PUT_DATA_MASTER = `PUT_MASTER_DATA`;
 const DELETE_DATA_MASTER = `DELETE_MASTER_DATA`;
 
 export const ACTION_GET_DATA_MASTER = `master/${GET_DATA_MASTER}`;
 export const ACTION_POST_DATA_MASTER = `master/${POST_DATA_MASTER}`;
+export const ACTION_IMPORT_DATA_MASTER = `master/${IMPORT_DATA_MASTER}`;
 export const ACTION_PUT_DATA_MASTER = `master/${PUT_DATA_MASTER}`;
 export const ACTION_DELETE_DATA_MASTER = `master/${DELETE_DATA_MASTER}`;
 
@@ -54,8 +56,7 @@ const actions = {
      */
     [GET_DATA_MASTER]({commit}, {type,slug=""}) {
         return new Promise((resolve) => {
-
-            ApiService.get(`${populateEndpoint(type,"GET")}${slug}`)
+            ApiService.get(`${populateEndpoint(type,GET_DATA_MASTER)}${slug}`)
                 .then(({success, data, shouldNext}) => {
 
                     if (success) {
@@ -85,7 +86,33 @@ const actions = {
      */
     [POST_DATA_MASTER]({commit}, {type, body}) {
         return new Promise((resolve) => {
-            ApiService.post(`${populateEndpoint(type,"POST")}`, body)
+            ApiService.post(`${populateEndpoint(type,POST_DATA_MASTER)}`, body)
+                .then(({success, data, message}) => {
+                    console.log(success)
+                    console.log(data)
+                    resolve({success: success, message: message});
+                    if (success) {
+
+                        commit(PUSH_DATA, {
+                            type: type,
+                            data: data,
+                        });
+                    }
+                })
+        });
+    },
+    /***
+     * send data to server
+     * @param commit
+     * @param type
+     * @param body
+     * save data to server the add to array store
+     * @returns {success,message}
+
+     */
+    [IMPORT_DATA_MASTER]({commit}, {type, body}) {
+        return new Promise((resolve) => {
+            ApiService.post(`${populateEndpoint(type,IMPORT_DATA_MASTER)}`, body)
                 .then(({success, data, message}) => {
                     console.log(success)
                     console.log(data)
@@ -108,7 +135,7 @@ const actions = {
      */
     [PUT_DATA_MASTER]({commit}, {type, body}) {
         return new Promise((resolve) => {
-            ApiService.put(`${populateEndpoint(type,"PUT")}/${body.id}`, body)
+            ApiService.put(`${populateEndpoint(type,PUT_DATA_MASTER)}/${body.id}`, body)
                 .then(({success, data, message}) => {
                     resolve({success: success, message: message});
                     if (success) {
@@ -132,7 +159,7 @@ const actions = {
      */
     [DELETE_DATA_MASTER]({commit}, {type, body}) {
         return new Promise((resolve) => {
-            ApiService.delete(`${populateEndpoint(type,"DELETE")}/${body.id}`)
+            ApiService.delete(`${populateEndpoint(type,DELETE_DATA_MASTER)}/${body.id}`)
                 .then(({success, message}) => {
                     resolve({success: success, message: message});
                     if (success) {
@@ -160,7 +187,7 @@ const mutations = {
         //assume the data is array
         data.forEach((element)=>{
             const exist = () =>{
-                if(type === TYPE_HOSPITAL)return   state.dataHospital.some(hospital=>hospital.id === element.id)
+                if(type === TYPE_HOSPITAL)return   state.dataHospital.some(hospital=>hospital.hospital_id === element.hospital_id)
                 if(type === TYPE_USER)return state.dataUser.some(user=>user.id === element.id)
                 if(type === TYPE_DEVICE) return state.dataDevice.some(device=> device.id === element.id)
                 if(type === TYPE_API) return state.dataApi.some(api=>api.id === element.id)
@@ -171,6 +198,7 @@ const mutations = {
             let isExist = exist()
             if(!isExist){
                 if(type === TYPE_HOSPITAL){
+                    console.log(element)
                     state.dataHospital.push(element)
                 }
                 if(type === TYPE_USER){
@@ -272,13 +300,15 @@ const populateEndpoint=(type,method)=>{
         if(type === TYPE_API) return `/api/api-key${suffix}`
     }
 
-    if(method === "GET") {
+    if(method === GET_DATA_MASTER) {
        return route('s')
-    }else if (method === "POST"){
+    }else if (method === POST_DATA_MASTER){
        return route('')
-    }else if(method === "PUT"){
+    }else if (method === IMPORT_DATA_MASTER){
+        return route('s')
+    }else if(method === PUT_DATA_MASTER){
         return route('')
-    }else if(method === "DELETE"){
+    }else if(method === DELETE_DATA_MASTER){
         return route('')
     }
     return "unknown"

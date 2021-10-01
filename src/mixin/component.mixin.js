@@ -32,6 +32,16 @@ export default {
                 {value: "DEV", name: "Developer"},
                 {value: "USER", name: "User"},
             ],
+            deviceType:[
+                {
+                    value:"consumer",
+                    name:"Consumer"
+                },
+                {
+                    value:"corporate",
+                    name:"Corporate"
+                }
+            ]
         }
     },
     watch: {

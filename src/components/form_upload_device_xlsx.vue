@@ -17,7 +17,7 @@
                   @change="onFileChanged"
                   show-size
                   :disabled="loading"
-                  label="File Siswa"
+                  label="File Device"
                 ></v-file-input>
               </v-col>
             </v-row>
@@ -52,15 +52,13 @@
 </template>
 <script>
 import xlsx from "xlsx";
-import { ACTION_IMPORT_USER } from "@/store/index.js";
+import { ACTION_IMPORT_DATA_MASTER ,TYPE_DEVICE} from "@/store";
 import componentMixin from "@/mixin/component.mixin"
 export default {
  mixins:[componentMixin],
   data: () => {
     return {
-
-
-      datasiswa: [],
+      dataDevice: [],
     };
   },
   methods: {
@@ -82,22 +80,24 @@ export default {
           const sheetName = workbook.SheetNames[0];
           const sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
-          sheet.map((nasabah) => {
-            //asosiate ke objek nasabah
-
-            if (nasabah["Username"]) {
-              this.datasiswa.push({
-                username: nasabah["Username"],
-                email: nasabah["Email"],
-                password: nasabah["Password"],
-                active: 1,
+          sheet.map((device) => {
+            //asosiate ke objek device
+            if (device["ID"]) {
+              this.dataDevice.push({
+                device_name: device["ID"],
+                device_mac: device["MAC"],
+                device_type:device["TYPE"],
+                device_holder:device["HOLDER"]
               });
             }
           });
+          console.log(sheet)
           // eslint-disable-next-line no-empty
         } catch (error) {
-
+        console.log(error)
         }
+
+
       };
       fileReader.onprogress = () => {
         this.loading = false;
@@ -105,9 +105,8 @@ export default {
       fileReader.readAsBinaryString(file);
     },
     onSubmit() {
-      console.log(this.datanasabah);
       this.$store
-        .dispatch(ACTION_IMPORT_USER, { data: this.datasiswa })
+        .dispatch(ACTION_IMPORT_DATA_MASTER, { type:TYPE_DEVICE,body: this.dataDevice })
         .then(({ success, message }) => {
           this.$toasted.show(
             success

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumbs :title="$t('User')" />
+    <Breadcrumbs :title="$t('Device')" />
     <!-- Container-fluid starts-->
     <div class="container-fluid">
       <div class="row">
@@ -10,12 +10,12 @@
               <div class="earning-content col-xl-3 col-lg-12 col-md-12">
                 <div class="row  chart-left">
                   <div class="col-xl-12 left_side_earning">
-                    <h5>{{$t('Data User')}}</h5>
+                    <h5>{{$t('Data Device')}}</h5>
                     <p class="font-roboto">{{$t('subtitleuser')}}</p>
                   </div>
                   <div class="col-xl-12 left-btn">
                     <a class="btn btn-gradient" @click="form_import = true"
-                    >{{ $t('Import Siswa') }}</a
+                    >{{ $t('Import Device') }}</a
                     >
                   </div>
                 </div>
@@ -37,14 +37,17 @@
       </div>
     </div>
     <!-- Container-fluid Ends-->
-    <form-user
+    <form-device
       :show="form"
       :body="body"
       :edit="isEdit"
       @close="form = false"
       @submit="onSubmit"
     />
-    <form-import-siswa :show="form_import" @close="form_import = false" />
+    <form-import-device
+        :show="form_import"
+        @close="form_import = false"
+    />
   </div>
 </template>
 
