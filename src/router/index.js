@@ -43,7 +43,7 @@ const routes = [
                 name: "dashboard",
                 component: () => import("@/pages/dashboard/dashboard.vue"),
                 meta: {
-                    title: "Dashboard | Bank Falah Syariah",
+                    title: "Dashboard | Api Device",
                     requiresAuth: true,
                     roles: ["public"]
                 },
@@ -103,7 +103,7 @@ const routes = [
                 name: "not-authorized",
                 component: () => import("@/pages/error/not-authorized.vue"),
                 meta: {
-                    title: "Unlock | Bank Falah Syariah",
+                    title: "Unlock | Api Device",
                     requiresAuth: false,
                     roles: ["public"]
                 },
@@ -116,7 +116,7 @@ const routes = [
         name: "login",
         component: () => import("@/pages/auth/login.vue"),
         meta: {
-            title: "Login | Bank Falah Syariah",
+            title: "Login | Api Device",
             requiresAuth: false,
             roles: ["admin", "bp_root", "siswa", "public"]
         },
@@ -126,7 +126,7 @@ const routes = [
         name: 'unlock',
         component: () => import("@/pages/auth/unlock_user"),
         meta: {
-            title: "Unlock | Bank Falah Syariah",
+            title: "Unlock | Api Device",
             requiresAuth: true,
             roles: ["admin", "bp_root", "siswa", "public"]
         },

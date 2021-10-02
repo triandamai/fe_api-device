@@ -33,7 +33,7 @@
                               class="form-control"
                               type="text"
                               required=""
-                              placeholder="Bakaran Project"
+                              placeholder="Username"
                               :class="{
                                 'is-invalid': submitted && !email,
                               }"
